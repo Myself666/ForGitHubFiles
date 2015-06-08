@@ -12,9 +12,8 @@ namespace EnglishQuestion.Logical
         private bool  _moved;
         private int _scores;
 
-        public Player(string n)
+        public Player()
         {
-            _name = n;
         }
 
         public string Name{get { return _name; } set { _name = value; }}

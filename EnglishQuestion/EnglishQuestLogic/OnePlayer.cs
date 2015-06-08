@@ -8,7 +8,7 @@ namespace EnglishQuestion.Logical
 {
     public class OnePlayer : IPlayer
     {
-        private Player _player;
+        private Player _player = new Player();
 
         public Player PlayerInfo
         {
@@ -30,7 +30,7 @@ namespace EnglishQuestion.Logical
 
         public void InstantiatePlayer()
         {
-            _player = new Player("Игрок НомерОдин");            
+            _player = new Player();            
         }
 
 
@@ -45,6 +45,11 @@ namespace EnglishQuestion.Logical
             }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" {0}<---Не верно", word);
+        }
+
+        public void ResetPoints()
+        {
+            _player.Scores = 0;
         }
     }
 }

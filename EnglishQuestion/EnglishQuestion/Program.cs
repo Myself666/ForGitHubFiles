@@ -26,7 +26,7 @@ namespace EnglishQuestion
 
             WordsDataBase[] workWdb = _sNloadClass.LoadWordsBase(wordPath);
             int baseLenght = workWdb.Length;
-            _consoleLogic = new ConsoleHud(workWdb,_newPlayer, baseLenght, true, true);
+            _consoleLogic = new ConsoleHud(workWdb,baseLenght, true, true);
             _consoleLogic.GetStartGame();
 
             Console.ReadLine();

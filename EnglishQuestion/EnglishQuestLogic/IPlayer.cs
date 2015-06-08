@@ -16,5 +16,6 @@ namespace EnglishQuestion
 
         void InstantiatePlayer();
         void MovePlayer(bool q, string word);
+        void ResetPoints();
     }
 }

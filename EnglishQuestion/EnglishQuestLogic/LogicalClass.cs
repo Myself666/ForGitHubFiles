@@ -5,7 +5,6 @@ namespace EnglishQuestion.Logical
 {
     public class LogicalClass : SubLogicClass, IComparable
     {
-
         private IPlayer _player;
 
         WordsDataBase[] wdbVariants = new WordsDataBase[4];
@@ -13,10 +12,9 @@ namespace EnglishQuestion.Logical
 
         public LogicalClass(WordsDataBase[] wdb, int lenght) : base(wdb,lenght){}
 
-        public LogicalClass(IPlayer player,WordsDataBase[] wdb, int lenght, bool ru)
+        public LogicalClass(WordsDataBase[] wdb, int lenght, bool ru)
             : base(wdb, lenght, ru)
         {
-            _player = player;
         }
 
         public string[] GetdVariants()
@@ -46,6 +44,23 @@ namespace EnglishQuestion.Logical
         public string GetWord()
         {
             return trueVariant.EnglishWord;
+        }
+
+        public void StartGame(string firstPlayer, string secondPlayer, int pointToWin)
+        {
+            if (secondPlayer != null)
+            {
+                _player = new TwoPlayers();
+                _player.PlayerOneInfo.Name = firstPlayer;
+                _player.PlayerTwoInfo.Name = secondPlayer;
+            }
+            else { _player = new OnePlayer(); _player.PlayerInfo.Name = firstPlayer; }
+            _player.ResetPoints();
+        }
+
+        public IPlayer GetInfoPlayer()
+        {
+            return _player;
         }
 
         public bool Move(string word)

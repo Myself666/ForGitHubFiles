@@ -8,8 +8,8 @@ namespace EnglishQuestion.Logical
 {
     public class TwoPlayers : IPlayer
     {
-        private Player _playerOne;
-        private Player _playerTwo;
+        private Player _playerOne = new Player();
+        private Player _playerTwo = new Player();
 
         private Player _currentPlayer;
 
@@ -33,12 +33,6 @@ namespace EnglishQuestion.Logical
 
         public void InstantiatePlayer()
         {
-            Console.WriteLine("\nВведите имя первого игрока");
-            string nameOne = Console.ReadLine();
-            Console.WriteLine("\nВведите имя второго игрока");
-            string nameTwo = Console.ReadLine();
-            _playerOne = new Player(nameOne);
-            _playerTwo = new Player(nameTwo);
             if (_currentPlayer == null)
             {
                 _currentPlayer = _playerOne;
@@ -64,6 +58,17 @@ namespace EnglishQuestion.Logical
             }
         }
 
+        public void ResetPoints()
+        {
+            _currentPlayer = _playerOne;
+            _playerOne.Moved = true;
+            _playerTwo.Moved = false;
+
+            _playerOne.Scores = 0;
+            _playerTwo.Scores = 0;
+            _currentPlayer.Scores = 0;
+        }
+
         void SetupPlayerQueue()
         {
             if (_playerOne.Moved && !_playerTwo.Moved)
@@ -80,14 +85,14 @@ namespace EnglishQuestion.Logical
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(" <---Все верно! {0} перевел правильно.", _currentPlayer.Name);
-                _currentPlayer.Scores += 2;
+                _currentPlayer.Scores++;
                 _playerOne.Moved = false;
                 _playerTwo.Moved = true;
                 return;
             }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" <---Не верно. {0} Ошибся", _currentPlayer.Name);
-                _currentPlayer.Scores -=1;
+            _currentPlayer.Scores += 0;
             _playerOne.Moved = false;
             _playerTwo.Moved = true;
         }
@@ -98,14 +103,14 @@ namespace EnglishQuestion.Logical
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(" <---Все верно! {0} перевел правильно.", _currentPlayer.Name);
-                _currentPlayer.Scores += 2;
+                _currentPlayer.Scores += 1;
                 _playerOne.Moved = true;
                 _playerTwo.Moved = false;
                 return;
             }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" <---Не верно. {0} Ошибся", _currentPlayer.Name);
-            _currentPlayer.Scores -= 1;
+            _currentPlayer.Scores += 0;
             _playerOne.Moved = true;
             _playerTwo.Moved = false;
         }

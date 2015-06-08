@@ -11,15 +11,15 @@ namespace EnglishQuestion
     class ConsoleHud
     {       
         private int _baseLenght;
-        private IPlayer _player;
         private bool _twoPlayers;
         private bool _rus;
+        private IPlayer _player;
         private LogicalClass logicLogic;
 
         string[] variants = new string[4];
         WordsDataBase[] wdbvariants = new WordsDataBase[4];
 
-        public ConsoleHud(WordsDataBase[] wdb, IPlayer player, int len, bool rus, bool two)
+        public ConsoleHud(WordsDataBase[] wdb, int len, bool rus, bool two)
         {
             Console.WriteLine("Вас приветствует Тюлень и его произведение.\n" +
                               "Данная игра сделана с целью подкрепления знаний в Английском языке.\n" +
@@ -30,14 +30,16 @@ namespace EnglishQuestion
             _baseLenght = len;
             _rus = rus;
             _twoPlayers = two;
-            _player = player;
-            logicLogic = new LogicalClass(_player,wdb,len, true);
-            _player.InstantiatePlayer();
+            logicLogic = new LogicalClass(wdb,len, true);
+
         }
 
         public void GetStartGame()
         {
             int count = 0;
+            string nameOne = Console.ReadLine();
+            string nameTwo = Console.ReadLine();
+            logicLogic.StartGame(nameOne,nameTwo,10);
             do
             {                
                 Console.Clear();
@@ -64,7 +66,7 @@ namespace EnglishQuestion
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("Ходит игрок ");
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write(_player.PlayerInfo.Name);
+                Console.Write(logicLogic.GetInfoPlayer().PlayerInfo.Name);
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\n\n\nКак переводится слово {0}", logicLogic.GetWord());
@@ -106,9 +108,9 @@ namespace EnglishQuestion
         public string GetInfoPlayer()
         {
             if(_twoPlayers)
-                return _player.PlayerOneInfo.Name + " :: " + _player.PlayerOneInfo.Scores +
-                    "       " + _player.PlayerTwoInfo.Name + " :: " + _player.PlayerTwoInfo.Scores;
-            return _player.PlayerInfo.Name + " :: " + _player.PlayerInfo.Scores;
+                return logicLogic.GetInfoPlayer().PlayerOneInfo.Name + " :: " + logicLogic.GetInfoPlayer().PlayerOneInfo.Scores +
+                    "       " + logicLogic.GetInfoPlayer().PlayerTwoInfo.Name + " :: " + logicLogic.GetInfoPlayer().PlayerTwoInfo.Scores;
+            return logicLogic.GetInfoPlayer().PlayerInfo.Name + " :: " + logicLogic.GetInfoPlayer().PlayerInfo.Scores;
         }
     }
 }
